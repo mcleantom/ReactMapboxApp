@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { MapProvider } from "react-map-gl";
+import Map from "./map";
+import ControlPlane from "./ControlPlane";
+import { ChakraProvider, Flex, ColorModeScript } from "@chakra-ui/react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <ColorModeScript />
+      <MapProvider>
+        <Flex>
+          <ControlPlane />
+          <Map />
+        </Flex>
+      </MapProvider>
+    </ChakraProvider>
   );
 }
 
