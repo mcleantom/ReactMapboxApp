@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/ReactMapboxApp/static/css/main.bd6be2f6.css",
+    "main.js": "/ReactMapboxApp/static/js/main.b9395142.js",
+    "static/js/483.716f333f.chunk.js": "/ReactMapboxApp/static/js/483.716f333f.chunk.js",
+    "static/js/787.de4e8b05.chunk.js": "/ReactMapboxApp/static/js/787.de4e8b05.chunk.js",
+    "static/media/logo.svg": "/ReactMapboxApp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/ReactMapboxApp/index.html",
+    "main.bd6be2f6.css.map": "/ReactMapboxApp/static/css/main.bd6be2f6.css.map",
+    "main.b9395142.js.map": "/ReactMapboxApp/static/js/main.b9395142.js.map",
+    "483.716f333f.chunk.js.map": "/ReactMapboxApp/static/js/483.716f333f.chunk.js.map",
+    "787.de4e8b05.chunk.js.map": "/ReactMapboxApp/static/js/787.de4e8b05.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd6be2f6.css",
+    "static/js/main.b9395142.js"
+  ]
+}
