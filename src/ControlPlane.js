@@ -24,8 +24,11 @@ import {
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderMark,
+  FormControl,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Formik, Field, useField, ErrorMessage } from "formik";
+import MultiSelect from "react-select";
 
 function WaypointRow({
   longitude = 0,
@@ -152,6 +155,88 @@ function SettingsForm({ title = "Settings" }) {
   );
 }
 
+function CreateAccordion() {
+  return (
+    <Accordion>
+      <WaypointsForm />
+      <SettingsForm />
+      <Button mt={4} colorScheme="teal" type="submit">
+        Submit
+      </Button>
+    </Accordion>
+  );
+}
+
+const iceCreamOptions = [
+  { value: "speed", label: "Speed" },
+  { value: "tws", label: "TWS" },
+  { value: "twa", label: "TWA" },
+];
+
+const FormSelect = ({ name, options, isMulti }) => {
+  const [field, meta, helpers] = useField(name);
+
+  function handleChange(option) {
+    if (!isMulti) {
+      helpers.setValue(option.value);
+    } else {
+      helpers.setFieldValue(option ? option.map((item) => item.value) : []);
+    }
+  }
+
+  return (
+    <MultiSelect
+      name={name}
+      onChange={(value) => {
+        helpers.setValue(value.map((item) => item.value));
+      }}
+      options={options}
+      onBlur={() => helpers.setTouched(true)}
+      isMulti={isMulti}
+    />
+  );
+};
+
+function ExampleForm() {
+  return (
+    <Formik
+      initialValues={{
+        polarName: 1234,
+        polarCondition: "",
+        icecream: null,
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        alert(JSON.stringify(values, null, 2));
+        setTimeout(() => setSubmitting(false), 1000);
+      }}
+    >
+      {({ handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
+          <FormControl>
+            <FormLabel htmlFor="polarName">Polar Name</FormLabel>
+            <Field as={Input} id="polarName" name="polarName" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="polarCondition">Loading Condition</FormLabel>
+            <Field as={Input} id="polarCondition" name="polarCondition" />
+          </FormControl>
+          <FormControl>
+            <FormSelect name="icecream" options={iceCreamOptions} isMulti />
+          </FormControl>
+          <Button
+            mt={4}
+            colorScheme="teal"
+            isLoading={isSubmitting}
+            type="submit"
+          >
+            Submit
+          </Button>
+        </form>
+      )}
+    </Formik>
+  );
+}
+
 export default function ControlPlane() {
   return (
     <Box
@@ -165,21 +250,17 @@ export default function ControlPlane() {
       <Tabs isFitted>
         <TabList>
           <Tab>Create</Tab>
-          <Tab>Attendees</Tab>
+          <Tab>Polar</Tab>
           <Tab>Chat</Tab>
         </TabList>
         <TabIndicator mt="-36px" zIndex={-1} height="34px" bg="green.200" />
         <TabPanels>
           <TabPanel p={0}>
-            <Accordion>
-              <WaypointsForm />
-              <SettingsForm />
-              <Button mt={4} colorScheme="teal" type="submit">
-                Submit
-              </Button>
-            </Accordion>
+            <CreateAccordion />
           </TabPanel>
-          <TabPanel>Attendees</TabPanel>
+          <TabPanel>
+            <ExampleForm />
+          </TabPanel>
           <TabPanel>Chat</TabPanel>
         </TabPanels>
       </Tabs>
